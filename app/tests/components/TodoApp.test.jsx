@@ -19,6 +19,8 @@ describe('TodoApp',()=>{
     todoApp.setState({todos: []});
     todoApp.handleAddTodo(todoText);
     expect(todoApp.state.todos[0].text).toBe(todoText);
+    expect(todoApp.state.todos[0].createdAt).toBeA('number');
+    expect(todoApp.state.todos[0].completedAt).toBe(undefined);
   });
 
   it('should not add todo item when invalid text is input',()=>{
@@ -35,12 +37,29 @@ describe('TodoApp',()=>{
     var todoData = {
       id:0,
       text: 'Test Features',
-      completed:false
+      completed:false,
     };
 
     todoApp.setState({todos:[todoData]});
     expect(todoApp.state.todos[0].completed).toBe(false);
     todoApp.handleToggle(todoData.id);
     expect(todoApp.state.todos[0].completed).toBe(true);
+  });
+
+  it('should change completedAt value when handleToggle gets called',()=>{
+    var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
+    var todoData = {
+      id:0,
+      text: 'Test Features',
+      completed:false,
+      completedAt:undefined
+    };
+
+    todoApp.setState({todos:[todoData]});
+    expect(todoApp.state.todos[0].completedAt).toBe(undefined);
+    todoApp.handleToggle(todoData.id);
+    expect(todoApp.state.todos[0].completedAt).toBeA('number');
+    todoApp.handleToggle(todoData.id);
+    expect(todoApp.state.todos[0].completedAt).toBe(undefined);
   });
 });

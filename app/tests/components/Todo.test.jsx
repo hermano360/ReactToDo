@@ -23,7 +23,7 @@ describe('Todo',()=>{
     var $el = $(ReactDOM.findDOMNode(todo));
 
     //fix $el selector to pick the root element
-    TestUtils.Simulate.click($el.find('')[0]);
+    TestUtils.Simulate.click($el[0]);
     expect(spy).toHaveBeenCalledWith(todoData.id);
   });
 });

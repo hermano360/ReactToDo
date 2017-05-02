@@ -25,7 +25,7 @@ module.exports={
     });
     // Filter by searchText
     filteredTodos = filteredTodos.filter((todo)=>{
-      return todo.text.indexOf(searchText) > -1
+      return todo.text.toLowerCase().indexOf(searchText) > -1
     });
 
     // Sort todos with non-Completed first

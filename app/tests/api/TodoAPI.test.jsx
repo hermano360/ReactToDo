@@ -63,7 +63,7 @@ describe('TodoAPI', ()=> {
       id:3,
       text:"third",
       completed:false
-    }]
+    }];
     it('should return all items when showCompleted true',()=>{
       var returnedArray = TodoAPI.filterTodos(todos,true,"");
       expect(returnedArray.length).toBe(todos.length);
@@ -77,8 +77,29 @@ describe('TodoAPI', ()=> {
       });
       var returnedArray = TodoAPI.filterTodos(todos,false,"");
       expect(returnedArray.length).toBe(nonCompleted);
-
     });
+    it('should put non-completed todos on top of list',()=>{
+      var orderedArray = TodoAPI.filterTodos(todos,true,'');
+      var ordered = true;
+      for(var i = 0; i < todos.length-1; i++){
+        if(todos[i]&& !todos[i+1]){
+          ordered = false;
+        }
+      }
+      expect(ordered).toBe(true);
+      expect(todos[0].completed).toBe(false);
+    });
+
+    it('should show all items when you have an empty search text string',()=>{
+      var filterTextArray = TodoAPI.filterTodos(todos,true,'');
+      expect(filterTextArray.length).toEqual(todos.length);
+    });
+
+    it('should show all items when you have an empty search text string',()=>{
+      var filterTextArray = TodoAPI.filterTodos(todos,true,'second');
+      expect(filterTextArray.length).toEqual(1);
+    });
+
   });
 
 });

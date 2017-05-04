@@ -1,7 +1,9 @@
 var React = require('react');
-var Todo = require('Todo');
+var {connect} = require('react-redux');
+import Todo from 'Todo';
 
-var TodoList = React.createClass({
+
+export var TodoList = React.createClass({
   render: function(){
     var {todos} = this.props;
     var renderTodos=()=>{
@@ -12,7 +14,7 @@ var TodoList = React.createClass({
       }
       return todos.map((todo)=>{
         return (
-          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+          <Todo key={todo.id} {...todo} />
         );
       })
     };
@@ -23,4 +25,13 @@ var TodoList = React.createClass({
   )
   }
 });
-module.exports = TodoList;
+
+// this is all it takes to connect a component to a redux store,
+// those values are now going to be located in the props
+export default connect(
+  (state) => {
+    return {
+      todos: state.todos
+    }
+  }
+)(TodoList);

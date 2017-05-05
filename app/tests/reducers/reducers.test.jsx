@@ -30,15 +30,17 @@ describe('Reducers',()=>{
     it('should add new todo',()=>{
       var action = {
         type:'ADD_TODO',
-        text: 'Hello'
+        todo: {
+          id:'abc',
+          text:'Something to do',
+          completed: false,
+          createdAt: 124543543
+        }
       };
       var state = [];
       var res = reducers.todosReducer(df(state),df(action));
       expect(res.length).toEqual(1);
-      expect(res[0].text).toBe(action.text);
-      expect(res[0].completed).toBe(false);
-      expect(res[0].createdAt).toBeA('number');
-      expect(res[0].completedAt).toBe(undefined);
+      expect(res[0]).toBe(action.todo);
     });
 
     it('should toggle todo',()=>{

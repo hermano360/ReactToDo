@@ -44,29 +44,12 @@ export var todosReducer = (state=[], action)=>{
           return todo;
         }
       });
+    case 'ADD_TODOS':
+      return [
+        ...state,
+        ...action.todos
+      ]
     default:
       return state;
   }
 }
-
-// export var addTodo = (text)=>{
-//   return {
-//     type:'ADD_TODO',
-//     text
-//   }
-// }
-
-//
-// export var toggleTodoReducer = (state,action){
-//   switch(action.type){
-//     case 'TOGGLE_TODO':
-//     default:
-//       return state
-//   }
-// }
-// export var toggleTodo = (id) => {
-//   return {
-//     type:'TOGGLE_TODO',
-//     id
-//   }
-// }
